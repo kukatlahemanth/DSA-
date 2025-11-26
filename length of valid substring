@@ -1,0 +1,17 @@
+Input: word = "cbaaaabc", forbidden = ["aaa","cb"]
+Output: 4
+Explanation: There are 11 valid substrings in word: "c", "b", "a", "ba", "aa", "bc", "baa", "aab", "ab", "abc" and "aabc". The length of the longest valid substring is 4. 
+It can be shown that all other substrings contain either "aaa" or "cb" as a substring. 
+
+class Solution:
+    def longestValidSubstring(self, word: str, forbidden: List[str]) -> int:
+        l,res=0,0
+        forbidden=set(forbidden)
+        for r in range(len(word)):
+            for i in range(r,max(r-10,l-1),-1):
+                if word[i:r+1] in forbidden:
+                    l=i+1
+                    break
+            res=max(res,r-l+1)
+        return res
+        
